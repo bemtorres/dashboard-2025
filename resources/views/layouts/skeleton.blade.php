@@ -19,6 +19,7 @@
     </script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('css')
 </head>
 <body class="font-sans antialiased bg-secondary">
     <div class="min-h-screen bg-secondary">
@@ -252,6 +253,8 @@
       if (textColorEl) textColorEl.textContent = bodyStyles.color;
   }
 
+  // Sistema de toast ahora está en toast.js
+
   // Hacer la función toggleTheme disponible globalmente
   window.toggleTheme = toggleTheme;
 
@@ -285,8 +288,19 @@
 
       console.log('🎨 Sistema de temas inicializado correctamente');
   });
+
+      // Pruebas de toast (descomenta para probar)
+      // toast.success('Usuario creado exitosamente')
+      // toast.warning('Revisa los datos antes de continuar')
+      // toast.error('No se pudo conectar al servidor')
+      // toast.info('Información guardada', 2000)
 </script>
 
-</body>
+<!-- Sistema de Toast - Cargar al final para asegurar disponibilidad -->
+<script src="{{ asset('common/toast.js') }}"></script>
 
+<!-- Sistema de Swoaler - Modales con iconos grandes -->
+<script src="{{ asset('common/alertnow.js') }}"></script>
+@stack('js')
+</body>
 </html>
