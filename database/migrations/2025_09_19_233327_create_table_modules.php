@@ -11,16 +11,31 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('modules', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('course_id')->references('id')->on('courses');
-            $table->string('name',100);
-            $table->longText('objective')->nullable();
-            $table->integer('position');
-            $table->integer('items_total')->default(0);
-            $table->boolean('quiz')->default(false);
-            $table->timestamps();
-        });
+
+      Schema::create('modules', function (Blueprint $table) {
+        $table->id();
+        // $table->foreignId('course_id')->references('id')->on('courses');
+        $table->foreignId('tenant_id')->references('id')->on('tenants');
+        $table->foreignId('user_id')->references('id')->on('users');
+        $table->string('code',100)->unique();
+        $table->string('name',100);
+        $table->json('info')->nullable();
+        $table->longText('objective')->nullable();
+        // $table->integer('position');
+        $table->integer('items_total')->default(0);
+        // $table->boolean('quiz')->default(false);
+        $table->integer('status')->default(1);
+        $table->timestamps();
+      });
+
+      Schema::create('course_modules', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('course_id')->references('id')->on('courses');
+        $table->foreignId('module_id')->references('id')->on('modules');
+        $table->integer('position');
+        $table->integer('status')->default(1);
+        $table->timestamps();
+      });
     }
 
     /**

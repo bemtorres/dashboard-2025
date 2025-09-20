@@ -412,11 +412,11 @@ class SwoalerManager {
         // Generar botones según configuración
         const buttonsHtml = showButtons ? `
             <div class="swoaler-buttons">
-                <button class="swoaler-btn ${config.buttonClass}" onclick="swoalerManager.closeModal('${modalId}')">
+                <button class="swoaler-btn ${config.buttonClass}" onclick="window.window.swoalerManager.closeModal('${modalId}')">
                     ${options.confirmText || config.buttonText}
                 </button>
                 ${options.showCancel ? `
-                    <button class="swoaler-btn swoaler-btn-secondary" onclick="swoalerManager.closeModal('${modalId}', false)">
+                    <button class="swoaler-btn swoaler-btn-secondary" onclick="window.window.swoalerManager.closeModal('${modalId}', false)">
                         ${options.cancelText || 'Cancelar'}
                     </button>
                 ` : ''}
@@ -439,7 +439,7 @@ class SwoalerManager {
         })() : '';
 
         modal.innerHTML = `
-            <button class="swoaler-close" onclick="swoalerManager.closeModal('${modalId}')">
+            <button class="swoaler-close" onclick="window.swoalerManager.closeModal('${modalId}')">
                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
@@ -644,13 +644,13 @@ class SwoalerManager {
         // Generar botones de opciones
         const buttonsHtml = choices.map((choice, index) => `
             <button class="swoaler-btn ${choice.class || 'swoaler-btn-primary'}"
-                    onclick="swoalerManager.handleChoice('${modalId}', ${index})">
+                    onclick="window.swoalerManager.handleChoice('${modalId}', ${index})">
                 ${choice.text}
             </button>
         `).join('');
 
         modal.innerHTML = `
-            <button class="swoaler-close" onclick="swoalerManager.closeModal('${modalId}')">
+            <button class="swoaler-close" onclick="window.swoalerManager.closeModal('${modalId}')">
                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
@@ -734,6 +734,7 @@ const swoalerManager = new SwoalerManager();
 
 // Exportar para uso global
 window.swoaler = swoalerManager;
+window.swoalerManager = swoalerManager;
 
 // Métodos de conveniencia globales
 window.swoalerSuccess = (title, message, options) => swoalerManager.success(title, message, options);

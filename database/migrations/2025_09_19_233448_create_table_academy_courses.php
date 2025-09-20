@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('academy_courses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id')->references('id')->on('tenants');
             $table->foreignId('academy_id')->references('id')->on('academies');
             $table->foreignId('course_id')->references('id')->on('courses');
             $table->integer('status')->default(1);

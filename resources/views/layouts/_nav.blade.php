@@ -1,6 +1,6 @@
-<div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-primary shadow-sm border-border-primary/20">
+<div class="sticky top-0 z-10 flex-shrink-0 flex h-12 bg-primary shadow-sm border-border-primary/20">
   <button type="button"
-      class="px-4 border-r border-border-primary text-tertiary hover:text-primary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500 lg:hidden transition-colors duration-200"
+      class="px-4 border-r border-border-primary text-tertiary hover:text-primary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500 lg:hidden transition-colors duration-200 rounded-l-xl"
       id="sidebar-toggle">
       <span class="sr-only">Abrir sidebar</span>
       <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -11,8 +11,8 @@
 
   <div class="flex-1 px-6 flex justify-between">
       <div class="flex-1 flex items-center">
-          <h2 class="text-xl font-bold text-primary flex items-center">
-              <svg class="w-6 h-6 mr-3 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <h2 class="text-lg font-bold text-primary flex items-center">
+              <svg class="w-4 h-4 mr-3 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
               </svg>
               @yield('page-title', 'Dashboard')
@@ -22,17 +22,22 @@
       <div class="ml-4 flex items-center space-x-4 md:ml-6">
           <button
               onclick="toggleTheme()"
-              class="px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+              class="p-2 rounded-xl text-xs font-medium transition-colors duration-200"
               style="background-color: var(--primary-500); color: var(--text-on-primary, white);"
           >
-              Cambiar Tema
+              <svg class="w-4 h-4 theme-icon-light" fill="none" stroke="currentColor" id="theme-icon-light" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+              </svg>
+              <svg class="w-4 h-4 theme-icon-dark" fill="none" stroke="currentColor" id="theme-icon-dark" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+              </svg>
           </button>
 
           <!-- Profile dropdown -->
           <div class="ml-3 relative">
               <div>
                   <button type="button"
-                      class="max-w-xs bg-primary flex items-center text-sm rounded-lg px-3 py-2 hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors duration-200 group"
+                      class="max-w-xs bg-primary flex items-center text-sm rounded-xl px-3 py-2 hover:border-none focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors duration-200 group"
                       id="user-menu-button">
                       <span class="sr-only">Abrir menú de usuario</span>
                       <div class="h-7 w-7 rounded-full flex items-center justify-center" style="background-color: var(--primary-600);">
@@ -49,7 +54,7 @@
 
               <!-- Dropdown menu -->
               <div id="user-dropdown"
-                  class="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-primary ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
+                  class="origin-top-right absolute right-0 mt-2 w-48 rounded-xl shadow-lg py-1 bg-primary ring-1 focus:outline-none hidden"
                   role="menu">
                   <a href="#"
                       class="flex items-center px-4 py-2 text-sm text-primary hover:bg-secondary transition-colors duration-200"

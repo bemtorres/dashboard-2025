@@ -4,7 +4,6 @@
 @section('page-title', 'Configuración')
 
 @section('content')
-
 <div class="container mx-auto p-8">
   <h1 class="text-3xl font-bold mb-8" style="color: var(--text-primary);">Test de Sistemas de Notificación</h1>
 
@@ -67,6 +66,67 @@
     >
         Error Toast
     </button>
+
+    <!-- Tests de Toast con HTML -->
+    <div class="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+        <h3 class="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">Tests de Toast con HTML</h3>
+
+        <button
+            onclick="console.log('Probando toastSuccessHtml...'); toastSuccessHtml('¡Éxito con <strong>HTML</strong>!');"
+            class="px-4 py-2 rounded-lg font-medium text-white mr-2 mb-2"
+            style="background-color: #10b981;"
+        >
+            Success con HTML
+        </button>
+
+        <button
+            onclick="console.log('Probando toastErrorHtml...'); toastErrorHtml('Error con <em>formato</em>');"
+            class="px-4 py-2 rounded-lg font-medium text-white mr-2 mb-2"
+            style="background-color: #ef4444;"
+        >
+            Error con HTML
+        </button>
+
+        <button
+            onclick="console.log('Probando toastWarningHtml...'); toastWarningHtml('Advertencia: <strong>Archivo grande</strong>');"
+            class="px-4 py-2 rounded-lg font-medium text-white mr-2 mb-2"
+            style="background-color: #f59e0b;"
+        >
+            Warning con HTML
+        </button>
+
+        <button
+            onclick="console.log('Probando toastInfoHtml...'); toastInfoHtml('Información: <em>Nuevo usuario</em>');"
+            class="px-4 py-2 rounded-lg font-medium text-white mr-2 mb-2"
+            style="background-color: #3b82f6;"
+        >
+            Info con HTML
+        </button>
+
+        <button
+            onclick="console.log('Probando toastHtml...'); toastHtml('black', 'Toast <strong>negro</strong>', 5000, 'Título Negro');"
+            class="px-4 py-2 rounded-lg font-medium text-white mr-2 mb-2"
+            style="background-color: #212121;"
+        >
+            Black con HTML
+        </button>
+
+        <button
+            onclick="console.log('Probando testToastHtml...'); testToastHtml();"
+            class="px-4 py-2 rounded-lg font-medium text-white mr-2 mb-2"
+            style="background-color: #8b5cf6;"
+        >
+            Test HTML Completo
+        </button>
+
+        <button
+            onclick="console.log('Verificando funciones...'); console.log('toastSuccessHtml:', typeof window.toastSuccessHtml); console.log('toastManager:', typeof window.toastManager);"
+            class="px-4 py-2 rounded-lg font-medium text-white mr-2 mb-2"
+            style="background-color: #6b7280;"
+        >
+            Debug Funciones
+        </button>
+    </div>
 
     <button
         onclick="testToast()"

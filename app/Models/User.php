@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -24,6 +26,8 @@ class User extends Authenticatable
         'password',
         'is_admin',
         'photo',
+        'tenant_id',
+        'active',
     ];
 
     /**
@@ -47,6 +51,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_admin' => 'boolean',
+            'active' => 'boolean',
         ];
     }
 
@@ -71,5 +76,37 @@ class User extends Authenticatable
             $initials .= strtoupper(substr($this->last_name, 0, 1));
         }
         return $initials ?: 'U';
+    }
+
+    /**
+     * Relación uno a muchos con cursos
+     */
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    /**
+     * Relación uno a muchos con módulos
+     */
+    public function modules(): HasMany
+    {
+        return $this->hasMany(Module::class);
+    }
+
+    /**
+     * Relación uno a muchos con academias
+     */
+    public function academies(): HasMany
+    {
+        return $this->hasMany(Academy::class);
+    }
+
+    /**
+     * Relación con el tenant
+     */
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(Tenant::class);
     }
 }

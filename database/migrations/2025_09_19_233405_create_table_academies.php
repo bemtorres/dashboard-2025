@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('academies', function (Blueprint $table) {
             $table->id();
-            $table->string('name',100);
-            $table->longText('objective')->nullable();
-            $table->string('photo')->default('/images/gallery.jpg');
+            $table->foreignId('tenant_id')->references('id')->on('tenants');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->string('code')->unique();
+            $table->string('name',100);
+            $table->longText('objective')->nullable();
+            $table->string('photo')->nullable();
+            $table->json('info')->nullable();
             $table->integer('status')->default(1);
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

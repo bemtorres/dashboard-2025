@@ -32,7 +32,7 @@ class ToastManager {
         this.container.id = 'toast-container';
         this.container.style.cssText = `
             position: fixed;
-            top: 20px;
+            top: 50px;
             right: 20px;
             z-index: 9999;
             display: flex;
@@ -89,6 +89,26 @@ class ToastManager {
 
                 .toast-item:hover .toast-progress-bar {
                     animation-play-state: paused;
+                }
+
+                .toast-item a {
+                    color: rgba(255, 255, 255, 0.9);
+                    text-decoration: underline;
+                    font-weight: 500;
+                    transition: color 0.2s ease;
+                }
+
+                .toast-item a:hover {
+                    color: white;
+                    text-decoration: none;
+                }
+
+                .toast-item strong {
+                    font-weight: 600;
+                }
+
+                .toast-item em {
+                    font-style: italic;
                 }
             `;
             document.head.appendChild(style);
@@ -198,7 +218,7 @@ class ToastManager {
                     ${titleHtml}
                     ${messageHtml}
                 </div>
-                <button onclick="toastManager.removeToast('${toastId}')" style="
+                <button id="close-btn-${toastId}" style="
                     background: none;
                     border: none;
                     color: white;
@@ -209,14 +229,31 @@ class ToastManager {
                     flex-shrink: 0;
                     opacity: 0.7;
                     margin-top: -2px;
-                " onmouseover="this.style.backgroundColor='rgba(255,255,255,0.2)'; this.style.opacity='1'"
-                   onmouseout="this.style.backgroundColor='transparent'; this.style.opacity='0.7'">
+                ">
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
         `;
+
+        // Agregar event listener para el botón de cerrar
+        const closeBtn = toast.querySelector(`[id="close-btn-${toastId}"]`);
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.removeToast(toastId);
+        });
+
+        // Agregar efectos hover
+        closeBtn.addEventListener('mouseover', function() {
+            this.style.backgroundColor = 'rgba(255,255,255,0.2)';
+            this.style.opacity = '1';
+        });
+
+        closeBtn.addEventListener('mouseout', function() {
+            this.style.backgroundColor = 'transparent';
+            this.style.opacity = '0.7';
+        });
 
         // Barra de progreso
         if (toastDuration > 0) {
@@ -346,6 +383,21 @@ class ToastManager {
         }
         return this.createToast(type, message, duration, title);
     }
+
+    // Método para crear toasts con HTML
+    html(type, message, duration = null, title = null, options = {}) {
+        const hasMessage = message && message.trim() !== '';
+        const hasTitle = title && title.trim() !== '';
+
+        if (!hasMessage && !hasTitle) {
+            console.warn('⚠️ Toast.html: No se puede mostrar un toast sin mensaje ni título');
+            return null;
+        }
+
+        // Marcar que este toast contiene HTML
+        const htmlOptions = { ...options, allowHtml: true };
+        return this.createToast(type, message, duration, title, htmlOptions);
+    }
 }
 
 // Crear instancia global
@@ -353,6 +405,7 @@ const toastManager = new ToastManager();
 
 // Exportar para uso global - mantener la instancia del ToastManager
 window.toast = toastManager;
+window.toastManager = toastManager;
 
 // Compatibilidad con alert() anterior
 window.alert = function(type, message, duration) {
@@ -411,6 +464,34 @@ window.toastBlack = (message, duration, title, options) => {
     return toastManager.black(message, duration, title, options);
 };
 
+// Funciones globales para HTML
+window.toastHtml = (type, message, duration, title, options) => {
+    const hasMessage = message && message.trim() !== '';
+    const hasTitle = title && title.trim() !== '';
+
+    if (!hasMessage && !hasTitle) {
+        console.warn('⚠️ toastHtml: No se puede mostrar un toast sin mensaje ni título');
+        return null;
+    }
+    return toastManager.html(type, message, duration, title, options);
+};
+
+window.toastSuccessHtml = (message, duration, title, options) => {
+    return toastManager.html('success', message, duration, title, options);
+};
+
+window.toastErrorHtml = (message, duration, title, options) => {
+    return toastManager.html('error', message, duration, title, options);
+};
+
+window.toastWarningHtml = (message, duration, title, options) => {
+    return toastManager.html('warning', message, duration, title, options);
+};
+
+window.toastInfoHtml = (message, duration, title, options) => {
+    return toastManager.html('info', message, duration, title, options);
+};
+
 // Verificar que toast esté disponible globalmente
 if (typeof window.toast === 'undefined') {
     console.error('❌ Error: toast no se pudo inicializar correctamente');
@@ -418,10 +499,28 @@ if (typeof window.toast === 'undefined') {
     console.log('✅ Sistema de Toast cargado y disponible globalmente');
 }
 
+// Verificar funciones HTML
+if (typeof window.toastSuccessHtml === 'undefined') {
+    console.error('❌ Error: Funciones HTML no se pudieron inicializar');
+} else {
+    console.log('✅ Funciones HTML de Toast cargadas correctamente');
+}
+
 // Función de prueba para verificar que funciona
 window.testToast = function() {
     if (window.toast) {
         toast.success('¡Sistema de Toast funcionando correctamente!');
+        return true;
+    } else {
+        console.error('❌ toast no está disponible');
+        return false;
+    }
+};
+
+// Función de prueba para HTML
+window.testToastHtml = function() {
+    if (window.toast) {
+        toastSuccessHtml('¡Toast con <strong>HTML</strong> funcionando! <a href="#" onclick="alert(\'Enlace clickeado\')">Haz clic aquí</a>');
         return true;
     } else {
         console.error('❌ toast no está disponible');
