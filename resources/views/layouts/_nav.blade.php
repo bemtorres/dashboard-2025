@@ -20,48 +20,12 @@
       </div>
 
       <div class="ml-4 flex items-center space-x-4 md:ml-6">
-          <!-- Botón de cambio de tema unificado -->
           <button
-              type="button"
-              id="theme-toggle"
               onclick="toggleTheme()"
-              style="background-color: var(--primary-500);"
-              onmouseover="this.style.backgroundColor='var(--primary-600)'"
-              onmouseout="this.style.backgroundColor='var(--primary-500)'"
-              title="Cambiar tema"
-              class="relative inline-flex items-center justify-center rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 group w-8 h-8"
+              class="px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+              style="background-color: var(--primary-500); color: var(--text-on-primary, white);"
           >
-              <span class="sr-only">Cambiar tema</span>
-              <!-- Icono de sol (modo claro) -->
-              <svg
-                  class="w-4 h-4 group-hover:scale-105 transition-transform duration-200 theme-icon-light"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  style="display: block;"
-              >
-                  <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 3v1m0 16v1m9-9h1M3 12H2m15.325-4.325l.707-.707M3.968 3.968l-.707-.707m0 16.064l.707-.707m16.064 0l.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z"
-                  ></path>
-              </svg>
-              <!-- Icono de luna (modo oscuro) -->
-              <svg
-                  class="w-4 h-4 group-hover:scale-105 transition-transform duration-200 theme-icon-dark"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  style="display: none;"
-              >
-                  <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                  ></path>
-              </svg>
+              Cambiar Tema
           </button>
 
           <!-- Profile dropdown -->
@@ -71,8 +35,8 @@
                       class="max-w-xs bg-primary flex items-center text-sm rounded-lg px-3 py-2 hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors duration-200 group"
                       id="user-menu-button">
                       <span class="sr-only">Abrir menú de usuario</span>
-                      <div class="h-7 w-7 rounded-full bg-primary-600 flex items-center justify-center">
-                          <span class="text-xs font-medium text-white">A</span>
+                      <div class="h-7 w-7 rounded-full flex items-center justify-center" style="background-color: var(--primary-600);">
+                          <span class="text-xs font-medium" style="color: var(--text-on-primary, white);">A</span>
                       </div>
                       <span class="ml-2 text-primary font-medium text-sm">Admin</span>
                       <svg class="ml-2 h-3 w-3 text-tertiary group-hover:text-primary-600 transition-colors duration-200" fill="none" stroke="currentColor"

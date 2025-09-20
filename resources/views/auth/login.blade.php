@@ -78,13 +78,6 @@
                     </div>
                 </div>
             </form>
-
-            <!-- Enlaces adicionales -->
-            <div class="text-center">
-                <a href="{{ url('/') }}" class="text-sm text-indigo-600 hover:text-indigo-500 transition-colors duration-200">
-                    ← Volver al inicio
-                </a>
-            </div>
         </div>
     </div>
 </body>

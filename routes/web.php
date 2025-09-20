@@ -12,12 +12,12 @@ use App\Http\Controllers\Admin\AssignProgramController;
 use App\Http\Controllers\Admin\ReportController;
 
 Route::get('/', function () {
-    return view('welcome');
+  return redirect()->route('login');
 });
 
-Route::get('/test-theme', function () {
-    return view('test-theme');
-});
+// Route::get('/test-theme', function () {
+//     return view('test-theme');
+// });
 
 Route::get('/login', function () {
     return view('auth.login');

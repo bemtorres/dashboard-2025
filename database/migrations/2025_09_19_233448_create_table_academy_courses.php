@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('academy_id')->references('id')->on('academies');
             $table->foreignId('course_id')->references('id')->on('courses');
-
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

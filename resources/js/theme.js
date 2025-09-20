@@ -24,32 +24,44 @@ class ThemeManager {
     }
 
     createThemeToggle() {
-        // El botón de tema ya existe en la navegación, solo configurar eventos
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-            console.log('Botón de tema encontrado:', themeToggle);
-            themeToggle.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('Click en botón de tema');
-                this.toggleTheme();
-            });
-            this.updateToggle();
-        } else {
-            console.error('Botón de tema no encontrado con id="theme-toggle"');
-            // Intentar de nuevo después de un breve delay
-            setTimeout(() => {
-                const retryToggle = document.getElementById('theme-toggle');
-                if (retryToggle) {
-                    console.log('Botón de tema encontrado en reintento:', retryToggle);
+        // Configurar eventos para todos los botones de tema posibles
+        const themeToggleSelectors = [
+            'theme-toggle',        // Componente theme-toggle
+            'theme-toggle-nav',    // Botón en navegación
+            'test-toggle'          // Botón de prueba en settings
+        ];
+
+        themeToggleSelectors.forEach(selector => {
+            const themeToggle = document.getElementById(selector);
+            if (themeToggle) {
+                console.log(`Botón de tema encontrado: ${selector}`, themeToggle);
+                themeToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log(`Click en botón de tema: ${selector}`);
+                    this.toggleTheme();
+                });
+                this.updateToggle();
+            } else {
+                console.log(`Botón de tema no encontrado: ${selector}`);
+            }
+        });
+
+        // Intentar de nuevo después de un breve delay para elementos que se cargan dinámicamente
+        setTimeout(() => {
+            themeToggleSelectors.forEach(selector => {
+                const retryToggle = document.getElementById(selector);
+                if (retryToggle && !retryToggle.hasAttribute('data-theme-listener')) {
+                    console.log(`Botón de tema encontrado en reintento: ${selector}`, retryToggle);
+                    retryToggle.setAttribute('data-theme-listener', 'true');
                     retryToggle.addEventListener('click', (e) => {
                         e.preventDefault();
-                        console.log('Click en botón de tema (reintento)');
+                        console.log(`Click en botón de tema (reintento): ${selector}`);
                         this.toggleTheme();
                     });
                     this.updateToggle();
                 }
-            }, 100);
-        }
+            });
+        }, 100);
     }
 
     getThemeIcon() {
@@ -67,12 +79,8 @@ class ThemeManager {
     }
 
     bindEvents() {
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => this.toggleTheme());
-        }
-
-        // Escuchar cambios en el sistema
+        // Los eventos de click ya se configuran en createThemeToggle()
+        // Solo configurar el listener para cambios del sistema
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
             if (!localStorage.getItem('theme')) {
                 this.theme = e.matches ? 'dark' : 'light';
@@ -91,12 +99,36 @@ class ThemeManager {
     }
 
     updateToggle() {
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        if (themeToggle && themeIcon) {
-            themeIcon.innerHTML = this.getThemeIconPath();
-            themeToggle.setAttribute('title', this.getThemeTooltip());
-        }
+        // Actualizar todos los botones de tema posibles
+        const themeToggleSelectors = [
+            'theme-toggle',        // Componente theme-toggle
+            'theme-toggle-nav',    // Botón en navegación
+            'test-toggle'          // Botón de prueba en settings
+        ];
+
+        themeToggleSelectors.forEach(selector => {
+            const themeToggle = document.getElementById(selector);
+            if (themeToggle) {
+                // Actualizar título
+                themeToggle.setAttribute('title', this.getThemeTooltip());
+
+                // Actualizar iconos si existen
+                const lightIcon = themeToggle.querySelector('.theme-icon-light');
+                const darkIcon = themeToggle.querySelector('.theme-icon-dark');
+
+                if (lightIcon && darkIcon) {
+                    if (this.theme === 'dark') {
+                        lightIcon.style.display = 'none';
+                        darkIcon.style.display = 'block';
+                    } else {
+                        lightIcon.style.display = 'block';
+                        darkIcon.style.display = 'none';
+                    }
+                }
+
+                console.log(`Botón ${selector} actualizado para tema: ${this.theme}`);
+            }
+        });
     }
 
     getThemeIconPath() {

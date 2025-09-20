@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
 
-    <!-- Theme Script - Must be before CSS to prevent FOUC -->
     <script>
         (function() {
             const savedTheme = localStorage.getItem('theme');
@@ -17,137 +16,6 @@
             const theme = savedTheme || (prefersDark ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', theme);
         })();
-    </script>
-
-    <!-- Theme Toggle Script - Mejorado -->
-    <script>
-        console.log('🎨 Sistema de temas cargado');
-
-        // Función global para cambiar tema
-        function toggleTheme() {
-            console.log('🔄 Cambiando tema...');
-
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-            console.log(`📱 Tema actual: ${currentTheme} → Nuevo tema: ${newTheme}`);
-
-            // Cambiar el atributo data-theme
-            document.documentElement.setAttribute('data-theme', newTheme);
-
-            // Guardar en localStorage
-            localStorage.setItem('theme', newTheme);
-
-            // Forzar repaint
-            document.body.style.display = 'none';
-            document.body.offsetHeight; // Trigger reflow
-            document.body.style.display = '';
-
-            console.log('✅ Tema cambiado exitosamente');
-
-            // Actualizar iconos si existen
-            updateThemeIcons();
-            updateUnifiedThemeIcons();
-        }
-
-        // Función para actualizar iconos de tema (genérica)
-        function updateThemeIcons() {
-            // Esta función ahora es genérica, el componente theme-toggle maneja sus propios iconos
-            console.log('🎯 Actualizando iconos de tema (genérico)');
-        }
-
-        // Hacer las funciones globales
-        window.toggleTheme = toggleTheme;
-        window.updateThemeIcons = updateThemeIcons;
-
-        // Inicializar iconos cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 DOM cargado, inicializando tema');
-            updateThemeIcons();
-            updateUnifiedThemeIcons();
-        });
-
-        // Función de debug
-        function debugTheme() {
-            console.log('🔍 === DEBUG DE TEMA ===');
-            console.log('Tema actual:', document.documentElement.getAttribute('data-theme'));
-            console.log('Tema guardado:', localStorage.getItem('theme'));
-            console.log('Fondo del body:', window.getComputedStyle(document.body).backgroundColor);
-            console.log('Color del texto:', window.getComputedStyle(document.body).color);
-        }
-
-        // Función de prueba (compatibilidad con botón test)
-        function testTheme() {
-            console.log('🧪 === PRUEBA DE TEMA ===');
-            console.log('Tema actual:', document.documentElement.getAttribute('data-theme'));
-            console.log('Clases del body:', document.body.className);
-            console.log('Estilos computados del body:', window.getComputedStyle(document.body).backgroundColor);
-            console.log('Estilos computados del html:', window.getComputedStyle(document.documentElement).backgroundColor);
-
-            // Forzar cambio de tema
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-            console.log('Cambiando a tema:', newTheme);
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-
-            // Actualizar iconos del botón unificado
-            updateUnifiedThemeIcons();
-
-            setTimeout(() => {
-                console.log('Después del cambio:');
-                console.log('Tema actual:', document.documentElement.getAttribute('data-theme'));
-                console.log('Estilos computados del body:', window.getComputedStyle(document.body).backgroundColor);
-            }, 100);
-        }
-
-        // Función para actualizar iconos del botón unificado
-        function updateUnifiedThemeIcons() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const lightIcon = document.querySelector('#theme-toggle .theme-icon-light');
-            const darkIcon = document.querySelector('#theme-toggle .theme-icon-dark');
-            const button = document.querySelector('#theme-toggle');
-
-            console.log('🔍 Actualizando iconos unificados...', {
-                lightIcon: !!lightIcon,
-                darkIcon: !!darkIcon,
-                button: !!button,
-                currentTheme
-            });
-
-            if (lightIcon && darkIcon && button) {
-                if (currentTheme === 'dark') {
-                    lightIcon.style.display = 'none';
-                    darkIcon.style.display = 'block';
-                    button.title = 'Cambiar a modo claro';
-                    console.log('🌙 Mostrando icono de luna - Título: Cambiar a modo claro');
-                } else {
-                    lightIcon.style.display = 'block';
-                    darkIcon.style.display = 'none';
-                    button.title = 'Cambiar a modo oscuro';
-                    console.log('☀️ Mostrando icono de sol - Título: Cambiar a modo oscuro');
-                }
-                console.log('✅ Iconos del botón unificado actualizados correctamente');
-            } else {
-                console.log('❌ Elementos del botón unificado no encontrados:', {
-                    lightIcon: !!lightIcon,
-                    darkIcon: !!darkIcon,
-                    button: !!button
-                });
-
-                // Reintentar después de un breve delay
-                setTimeout(() => {
-                    console.log('🔄 Reintentando actualización de iconos...');
-                    updateUnifiedThemeIcons();
-                }, 100);
-            }
-        }
-
-        window.debugTheme = debugTheme;
-        window.testTheme = testTheme;
-
-        console.log('✅ Sistema de temas inicializado');
     </script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -276,6 +144,149 @@
             });
         });
     </script>
+
+
+<script>
+  // Función global para cambiar tema
+  function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+      console.log('🔄 Cambiando tema de', currentTheme, 'a', newTheme);
+
+      // Actualizar tema
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+
+      // Actualizar iconos de todos los botones
+      updateAllThemeIcons(newTheme);
+
+      // Actualizar información del tema (si existe)
+      updateThemeInfo();
+
+      // Mostrar notificación
+      showThemeNotification(newTheme);
+  }
+
+  // Función para actualizar iconos de todos los botones de tema
+  function updateAllThemeIcons(currentTheme) {
+      const themeToggleSelectors = [
+          'theme-toggle',        // Componente theme-toggle
+          'theme-toggle-nav',    // Botón en navegación
+          'test-toggle'          // Botón de prueba en settings
+      ];
+
+      themeToggleSelectors.forEach(selector => {
+          const button = document.getElementById(selector);
+          if (button) {
+              const lightIcon = button.querySelector('.theme-icon-light');
+              const darkIcon = button.querySelector('.theme-icon-dark');
+
+              if (lightIcon && darkIcon) {
+                  if (currentTheme === 'dark') {
+                      lightIcon.style.display = 'none';
+                      darkIcon.style.display = 'block';
+                      button.title = 'Cambiar a modo claro';
+                  } else {
+                      lightIcon.style.display = 'block';
+                      darkIcon.style.display = 'none';
+                      button.title = 'Cambiar a modo oscuro';
+                  }
+                  console.log(`✅ Botón ${selector} actualizado para tema: ${currentTheme}`);
+              }
+          }
+      });
+  }
+
+  // Función para mostrar notificación de cambio de tema
+  function showThemeNotification(theme) {
+      const notification = document.createElement('div');
+      notification.className = 'theme-notification';
+      notification.textContent = `Modo ${theme === 'dark' ? 'oscuro' : 'claro'} activado`;
+      notification.style.cssText = `
+          position: fixed;
+          top: 80px;
+          right: 20px;
+          z-index: 1000;
+          padding: 12px 20px;
+          background: var(--primary-600, #3b82f6);
+          color: white;
+          border-radius: 8px;
+          font-size: 14px;
+          font-weight: 500;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+      `;
+
+      document.body.appendChild(notification);
+
+      // Animar entrada
+      setTimeout(() => {
+          notification.style.transform = 'translateX(0)';
+      }, 100);
+
+      // Remover después de 3 segundos
+      setTimeout(() => {
+          notification.style.transform = 'translateX(100%)';
+          setTimeout(() => {
+              if (notification.parentNode) {
+                  notification.parentNode.removeChild(notification);
+              }
+          }, 300);
+      }, 3000);
+  }
+
+  // Función para actualizar la información del tema (solo para la página de settings)
+  function updateThemeInfo() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const bodyStyles = window.getComputedStyle(document.body);
+
+      // Solo actualizar si los elementos existen (página de settings)
+      const currentThemeEl = document.getElementById('current-theme');
+      const bodyBgEl = document.getElementById('body-bg');
+      const textColorEl = document.getElementById('text-color');
+
+      if (currentThemeEl) currentThemeEl.textContent = currentTheme;
+      if (bodyBgEl) bodyBgEl.textContent = bodyStyles.backgroundColor;
+      if (textColorEl) textColorEl.textContent = bodyStyles.color;
+  }
+
+  // Hacer la función toggleTheme disponible globalmente
+  window.toggleTheme = toggleTheme;
+
+  // Actualizar información al cargar
+  document.addEventListener('DOMContentLoaded', function() {
+      // Obtener tema actual
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+
+      // Actualizar iconos inicialmente
+      updateAllThemeIcons(currentTheme);
+
+      // Actualizar información del tema
+      updateThemeInfo();
+
+      // Escuchar cambios de tema para actualizar la información
+      const themeObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+              if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                  const newTheme = document.documentElement.getAttribute('data-theme');
+                  updateAllThemeIcons(newTheme);
+                  updateThemeInfo();
+              }
+          });
+      });
+
+      // Iniciar observación
+      themeObserver.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['data-theme']
+      });
+
+      console.log('🎨 Sistema de temas inicializado correctamente');
+  });
+</script>
+
 </body>
 
 </html>
