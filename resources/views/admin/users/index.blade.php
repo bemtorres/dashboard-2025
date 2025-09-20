@@ -23,8 +23,8 @@
     </x-back>
 
     <!-- Filtros y búsqueda -->
-    <div class="card">
-        <div class="p-6">
+    <div class="">
+        <div class="p-2">
             <form method="GET" action="{{ route('admin.users.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
                     <label for="search" class="block text-sm font-medium text-primary mb-2">Buscar</label>

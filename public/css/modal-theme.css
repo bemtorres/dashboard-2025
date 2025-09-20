@@ -1,0 +1,187 @@
+/**
+ * Estilos base para el sistema de temas de modales
+ * Complementa el JavaScript modal-theme.js
+ */
+
+/* Transiciones suaves para cambios de tema */
+.modal-theme-transition {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Estilos base para modales */
+.modal-container {
+    @apply fixed inset-0 bg-black/30 backdrop-blur-[1px] hidden z-50 items-center justify-center p-2;
+}
+
+.modal-content {
+    @apply rounded-lg shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-y-auto;
+    transition: all 0.3s ease;
+}
+
+/* Estilos para modo claro */
+.modal-content.light {
+    @apply bg-gray-50 border border-gray-100;
+}
+
+.modal-header.light {
+    @apply bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-100;
+}
+
+.modal-title.light {
+    @apply text-gray-700;
+}
+
+.modal-subtitle.light {
+    @apply text-gray-500;
+}
+
+.modal-label.light {
+    @apply text-gray-600;
+}
+
+.modal-input.light {
+    @apply bg-white border-gray-300 text-gray-900 placeholder-gray-500;
+}
+
+.modal-input.light:focus {
+    @apply ring-2 ring-blue-500 border-blue-500;
+}
+
+.modal-button-cancel.light {
+    @apply bg-gray-100 border-gray-200 text-gray-600;
+}
+
+.modal-button-cancel.light:hover {
+    @apply bg-gray-200 border-gray-300;
+}
+
+.modal-button-primary.light {
+    @apply bg-blue-500 text-white;
+}
+
+.modal-button-primary.light:hover {
+    @apply bg-blue-600;
+}
+
+.modal-file-input.light {
+    @apply bg-white border-gray-300;
+}
+
+.modal-file-input.light::file-selector-button {
+    @apply bg-blue-50 text-blue-700 border-0 rounded-md px-4 py-2 mr-4;
+}
+
+.modal-file-input.light::file-selector-button:hover {
+    @apply bg-blue-100;
+}
+
+/* Estilos para modo oscuro */
+.modal-content.dark {
+    @apply bg-gray-900 border-gray-700;
+}
+
+.modal-header.dark {
+    @apply bg-gradient-to-r from-gray-800 to-gray-700 border-b border-gray-600;
+}
+
+.modal-title.dark {
+    @apply text-white;
+}
+
+.modal-subtitle.dark {
+    @apply text-gray-300;
+}
+
+.modal-label.dark {
+    @apply text-gray-200;
+}
+
+.modal-input.dark {
+    @apply bg-gray-800 border-gray-600 text-white placeholder-gray-400;
+}
+
+.modal-input.dark:focus {
+    @apply ring-2 ring-blue-500 border-blue-500;
+}
+
+.modal-button-cancel.dark {
+    @apply bg-gray-800 border-gray-600 text-gray-200;
+}
+
+.modal-button-cancel.dark:hover {
+    @apply bg-gray-700;
+}
+
+.modal-button-primary.dark {
+    @apply bg-gray-600 text-white;
+}
+
+.modal-button-primary.dark:hover {
+    @apply bg-gray-700;
+}
+
+.modal-file-input.dark {
+    @apply bg-gray-800 border-gray-600 text-white;
+}
+
+.modal-file-input.dark::file-selector-button {
+    @apply bg-gray-700 text-gray-200 border-0 rounded-md px-4 py-2 mr-4;
+}
+
+.modal-file-input.dark::file-selector-button:hover {
+    @apply bg-gray-600;
+}
+
+/* Utilidades para transiciones */
+.theme-transition {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilos para elementos específicos del modal de crear usuario */
+#createUserModal .modal-content {
+    @apply theme-transition;
+}
+
+#createUserModal .modal-header {
+    @apply theme-transition;
+}
+
+#createUserModal .modal-title {
+    @apply theme-transition;
+}
+
+#createUserModal .modal-subtitle {
+    @apply theme-transition;
+}
+
+#createUserModal label {
+    @apply theme-transition;
+}
+
+#createUserModal input,
+#createUserModal select,
+#createUserModal textarea {
+    @apply theme-transition;
+}
+
+#createUserModal button {
+    @apply theme-transition;
+}
+
+/* Asegurar que los estilos se apliquen correctamente */
+.modal-theme-applied {
+    @apply theme-transition;
+}
+
+/* Estilos para el overlay del modal */
+.modal-overlay {
+    @apply fixed inset-0 bg-black/30 backdrop-blur-[1px] transition-opacity duration-300;
+}
+
+.modal-overlay.hidden {
+    @apply opacity-0 pointer-events-none;
+}
+
+.modal-overlay.visible {
+    @apply opacity-100 pointer-events-auto;
+}
