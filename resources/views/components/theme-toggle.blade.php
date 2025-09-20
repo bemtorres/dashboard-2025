@@ -24,7 +24,6 @@
 
 <button
     type="button"
-    id="theme-toggle"
     onclick="toggleTheme()"
     style="background-color: var(--primary-500);"
     onmouseover="this.style.backgroundColor='var(--primary-600)'"

@@ -10,14 +10,16 @@
 @section('app')
 <div class="space-y-6">
     <x-back title="Usuarios" description="Gestiona los usuarios de tu aplicación">
-      <x-button
+      <button
+        type="button"
         onclick="openCreateUserModal()"
-        variant="primary"
-        size="sm"
-        icon="<path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 6v6m0 0v6m0-6h6m-6 0H6'></path>"
+        class="inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 disabled:opacity-50 disabled:cursor-not-allowed bg-gray-600 text-white hover:bg-gray-700 shadow-lg hover:shadow-xl px-3 py-1.5 text-sm"
       >
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
         Agregar Usuario
-      </x-button>
+      </button>
     </x-back>
 
     <!-- Filtros y búsqueda -->
@@ -104,83 +106,133 @@
         @include('admin.users._table_users')
     </div>
 </div>
-
-<!-- Modal para crear usuario -->
-@include('admin.users._modal_create_user')
-
-<script>
-function toggleUserMenu(userId) {
-    const menu = document.getElementById(`user-menu-${userId}`);
-    const isHidden = menu.classList.contains('hidden');
-
-    // Cerrar todos los otros menús abiertos
-    document.querySelectorAll('[id^="user-menu-"]').forEach(otherMenu => {
-        if (otherMenu.id !== `user-menu-${userId}`) {
-            otherMenu.classList.add('hidden');
-        }
-    });
-
-    if (isHidden) {
-        // Mostrar menú con animación
-        menu.classList.remove('hidden');
-        menu.style.opacity = '0';
-        menu.style.transform = 'scale(0.95)';
-
-        // Force reflow
-        menu.offsetHeight;
-
-        // Añadir transición
-        menu.style.transition = 'opacity 100ms ease-out, transform 100ms ease-out';
-        menu.style.opacity = '1';
-        menu.style.transform = 'scale(1)';
-    } else {
-        // Ocultar menú con animación
-        menu.style.transition = 'opacity 75ms ease-in, transform 75ms ease-in';
-        menu.style.opacity = '0';
-        menu.style.transform = 'scale(0.95)';
-
-        setTimeout(() => {
-            menu.classList.add('hidden');
-            menu.style.transition = '';
-        }, 75);
-    }
-}
-
-// Cerrar menús al hacer clic fuera
-document.addEventListener('click', function(event) {
-    if (!event.target.closest('[id^="user-menu-button-"]') && !event.target.closest('[id^="user-menu-"]')) {
-        document.querySelectorAll('[id^="user-menu-"]').forEach(menu => {
-            if (!menu.classList.contains('hidden')) {
-                menu.style.transition = 'opacity 75ms ease-in, transform 75ms ease-in';
-                menu.style.opacity = '0';
-                menu.style.transform = 'scale(0.95)';
-
-                setTimeout(() => {
-                    menu.classList.add('hidden');
-                    menu.style.transition = '';
-                }, 75);
-            }
-        });
-    }
-});
-
-// Cerrar menús con tecla Escape
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        document.querySelectorAll('[id^="user-menu-"]').forEach(menu => {
-            if (!menu.classList.contains('hidden')) {
-                menu.style.transition = 'opacity 75ms ease-in, transform 75ms ease-in';
-                menu.style.opacity = '0';
-                menu.style.transform = 'scale(0.95)';
-
-                setTimeout(() => {
-                    menu.classList.add('hidden');
-                    menu.style.transition = '';
-                }, 75);
-            }
-        });
-    }
-});
-
-</script>
 @endsection
+@push('extra')
+@include('admin.users._modal_create_user')
+@endpush
+@push('js')
+<script>
+  // Función para abrir el modal de crear usuario
+  function openCreateUserModal() {
+      console.log('Intentando abrir modal...');
+      const modal = document.getElementById('createUserModal');
+      console.log('Modal encontrado:', modal);
+
+      if (modal) {
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+          document.body.style.overflow = 'hidden';
+          console.log('Modal abierto correctamente');
+
+          // Enfocar el primer input
+          setTimeout(() => {
+              const firstInput = modal.querySelector('input');
+              if (firstInput) {
+                  firstInput.focus();
+              }
+          }, 100);
+      } else {
+          console.error('Modal no encontrado con ID: createUserModal');
+      }
+  }
+
+  // Función para cerrar el modal de crear usuario
+  function closeCreateUserModal() {
+      console.log('Cerrando modal...');
+      const modal = document.getElementById('createUserModal');
+      if (modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          document.body.style.overflow = 'auto';
+
+          // Limpiar el formulario
+          const form = document.getElementById('createUserForm');
+          if (form) {
+              form.reset();
+          }
+      }
+  }
+
+  function toggleUserMenu(userId) {
+      const menu = document.getElementById(`user-menu-${userId}`);
+      const isHidden = menu.classList.contains('hidden');
+
+      // Cerrar todos los otros menús abiertos
+      document.querySelectorAll('[id^="user-menu-"]').forEach(otherMenu => {
+          if (otherMenu.id !== `user-menu-${userId}`) {
+              otherMenu.classList.add('hidden');
+          }
+      });
+
+      if (isHidden) {
+          // Mostrar menú con animación
+          menu.classList.remove('hidden');
+          menu.style.opacity = '0';
+          menu.style.transform = 'scale(0.95)';
+
+          // Force reflow
+          menu.offsetHeight;
+
+          // Añadir transición
+          menu.style.transition = 'opacity 100ms ease-out, transform 100ms ease-out';
+          menu.style.opacity = '1';
+          menu.style.transform = 'scale(1)';
+      } else {
+          // Ocultar menú con animación
+          menu.style.transition = 'opacity 75ms ease-in, transform 75ms ease-in';
+          menu.style.opacity = '0';
+          menu.style.transform = 'scale(0.95)';
+
+          setTimeout(() => {
+              menu.classList.add('hidden');
+              menu.style.transition = '';
+          }, 75);
+      }
+  }
+
+  // Inicializar cuando el DOM esté listo
+  document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM cargado, inicializando funciones del modal...');
+
+      // Cerrar modal al hacer clic fuera
+      document.addEventListener('click', function(e) {
+          const modal = document.getElementById('createUserModal');
+          if (e.target === modal) {
+              closeCreateUserModal();
+          }
+      });
+
+      // Cerrar modal con tecla Escape
+      document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+              const modal = document.getElementById('createUserModal');
+              if (modal && !modal.classList.contains('hidden')) {
+                  closeCreateUserModal();
+              }
+          }
+      });
+
+      // Validación del formulario
+      const form = document.getElementById('createUserForm');
+      if (form) {
+          form.addEventListener('submit', function(e) {
+              const password = document.getElementById('password').value;
+
+              if (password.length < 8) {
+                  e.preventDefault();
+                  alert('La contraseña debe tener al menos 8 caracteres');
+                  return false;
+              }
+          });
+      }
+
+      // Verificar que el modal existe
+      const modal = document.getElementById('createUserModal');
+      if (modal) {
+          console.log('Modal encontrado en DOM:', modal);
+      } else {
+          console.error('Modal no encontrado en DOM');
+      }
+  });
+  </script>
+@endpush

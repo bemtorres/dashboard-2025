@@ -26,9 +26,7 @@ class ThemeManager {
     createThemeToggle() {
         // Configurar eventos para todos los botones de tema posibles
         const themeToggleSelectors = [
-            'theme-toggle',        // Componente theme-toggle
             'theme-toggle-nav',    // Botón en navegación
-            'test-toggle'          // Botón de prueba en settings
         ];
 
         themeToggleSelectors.forEach(selector => {
@@ -79,8 +77,6 @@ class ThemeManager {
     }
 
     bindEvents() {
-        // Los eventos de click ya se configuran en createThemeToggle()
-        // Solo configurar el listener para cambios del sistema
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
             if (!localStorage.getItem('theme')) {
                 this.theme = e.matches ? 'dark' : 'light';
@@ -101,9 +97,7 @@ class ThemeManager {
     updateToggle() {
         // Actualizar todos los botones de tema posibles
         const themeToggleSelectors = [
-            'theme-toggle',        // Componente theme-toggle
             'theme-toggle-nav',    // Botón en navegación
-            'test-toggle'          // Botón de prueba en settings
         ];
 
         themeToggleSelectors.forEach(selector => {
