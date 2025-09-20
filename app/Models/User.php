@@ -19,8 +19,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
         'email',
         'password',
+        'is_admin',
+        'photo',
     ];
 
     /**
@@ -43,6 +46,30 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
+    }
+
+    /**
+     * Get the user's full name.
+     */
+    public function getFullNameAttribute(): string
+    {
+        return trim($this->name . ' ' . $this->last_name);
+    }
+
+    /**
+     * Get the user's initials for avatar.
+     */
+    public function getInitialsAttribute(): string
+    {
+        $initials = '';
+        if ($this->name) {
+            $initials .= strtoupper(substr($this->name, 0, 1));
+        }
+        if ($this->last_name) {
+            $initials .= strtoupper(substr($this->last_name, 0, 1));
+        }
+        return $initials ?: 'U';
     }
 }
