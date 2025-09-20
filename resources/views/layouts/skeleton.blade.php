@@ -32,7 +32,7 @@
         @include('layouts._nav')
         <main class="flex-1 bg-secondary">
           <div class="mt-4">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="max-w-7xl mx-auto px-2 sm:px-6 md:px-8">
               @yield('app')
             </div>
           </div>
