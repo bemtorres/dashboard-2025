@@ -159,7 +159,7 @@
         <div class="fixed inset-0 z-40 bg-primary bg-opacity-75 lg:hidden hidden" id="sidebar-overlay"></div>
 
         <!-- Main content -->
-      <div class="lg:pl-64 flex flex-col flex-1 bg-secondary">
+      <div class="lg:pl-56 flex flex-col flex-1 bg-secondary">
         @include('layouts._nav')
         <main class="flex-1 bg-secondary">
           <div class="py-6">

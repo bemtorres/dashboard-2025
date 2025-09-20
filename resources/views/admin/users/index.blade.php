@@ -9,23 +9,16 @@
 
 @section('app')
 <div class="space-y-6">
-    <!-- Header con botones de acción -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        <div>
-            <h1 class="text-2xl font-bold text-primary">Usuarios</h1>
-            <p class="mt-1 text-sm text-secondary">Gestiona los usuarios de tu aplicación</p>
-        </div>
-        <div class="mt-4 sm:mt-0">
-            <x-button
-                href="{{ route('admin.users.create') }}"
-                variant="primary"
-                size="sm"
-                icon="<path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 6v6m0 0v6m0-6h6m-6 0H6'></path>"
-            >
-                Agregar Usuario
-            </x-button>
-        </div>
-    </div>
+    <x-back title="Usuarios" description="Gestiona los usuarios de tu aplicación" href="{{ route('admin.users.create') }}">
+        <x-button
+          href="{{ route('admin.users.create') }}"
+          variant="primary"
+          size="sm"
+          icon="<path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 6v6m0 0v6m0-6h6m-6 0H6'></path>"
+        >
+          Agregar Usuario
+        </x-button>
+    </x-back>
 
     <!-- Filtros y búsqueda -->
     <div class="card">

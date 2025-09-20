@@ -73,7 +73,7 @@
 @endphp
 
 
- <div class="fixed inset-y-0 left-0 z-50 w-64 sidebar transform transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0"
+ <div class="fixed inset-y-0 left-0 z-50 w-56 sidebar transform transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0"
      id="sidebar">
      <div class="flex items-center justify-between h-16 px-4 sidebar-header">
          <h1 class="text-lg lg:text-xl font-bold text-white">Admin Panel</h1>

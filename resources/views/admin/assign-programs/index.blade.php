@@ -5,7 +5,7 @@
 @section('app')
 <div class="space-y-6">
     <!-- Header -->
-    <div class="md:flex md:items-center md:justify-between">
+    <div class="md:flex md:items-center md:justify-between mb-3">
         <div class="flex-1 min-w-0">
             <h2 class="text-2xl font-bold leading-7 text-primary sm:text-3xl sm:truncate">
                 {{ $title }}
