@@ -66,41 +66,69 @@
 </button>
 
 <script>
-// Función para actualizar los iconos del botón de tema
-function updateThemeIcons() {
+// Script del componente theme-toggle - Autónomo
+console.log('🎨 Componente theme-toggle cargado');
+
+// Función para actualizar iconos de este componente específico
+function updateThemeToggleIcons() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const lightIcon = document.querySelector('#theme-toggle .theme-icon-light');
     const darkIcon = document.querySelector('#theme-toggle .theme-icon-dark');
+    const button = document.querySelector('#theme-toggle');
 
-    if (lightIcon && darkIcon) {
+    console.log('🔍 Buscando iconos...', { lightIcon, darkIcon, currentTheme });
+
+    if (lightIcon && darkIcon && button) {
         if (currentTheme === 'dark') {
             lightIcon.style.display = 'none';
             darkIcon.style.display = 'block';
+            button.title = 'Cambiar a modo claro';
+            console.log('🌙 Mostrando icono de luna - Título: Cambiar a modo claro');
         } else {
             lightIcon.style.display = 'block';
             darkIcon.style.display = 'none';
+            button.title = 'Cambiar a modo oscuro';
+            console.log('☀️ Mostrando icono de sol - Título: Cambiar a modo oscuro');
         }
-        console.log('Iconos de tema actualizados');
+        console.log('✅ Iconos del botón actualizados correctamente');
+    } else {
+        console.log('❌ Elementos no encontrados:', { lightIcon, darkIcon, button });
     }
 }
 
-// Inicializar iconos al cargar
-document.addEventListener('DOMContentLoaded', function() {
-    updateThemeIcons();
-});
+// Función para inicializar cuando el componente esté listo
+function initThemeToggle() {
+    console.log('🚀 Inicializando theme-toggle...');
 
-// Escuchar cambios en el tema (para cuando se cambie desde otros lugares)
-const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
-            updateThemeIcons();
-        }
+    // Actualizar iconos inmediatamente
+    updateThemeToggleIcons();
+
+    // Observar cambios en el tema
+    const themeObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                console.log('🔄 Tema cambiado, actualizando iconos del botón');
+                updateThemeToggleIcons();
+            }
+        });
     });
-});
 
-// Observar cambios en el atributo data-theme
-observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['data-theme']
-});
+    // Iniciar observación
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+    });
+
+    console.log('✅ Theme-toggle observador iniciado');
+}
+
+// Inicializar cuando el DOM esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemeToggle);
+} else {
+    // DOM ya está listo
+    initThemeToggle();
+}
+
+console.log('✅ Theme-toggle script cargado');
 </script>

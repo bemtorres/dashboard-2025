@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test-theme', function () {
+    return view('test-theme');
+});
+
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');

@@ -92,7 +92,7 @@
             @foreach ($menuSections as $section)
               @if ($section['title'] !== 'Dashboard')
               <div class="px-3 mb-2">
-              <h3 class="text-xs font-semibold text-tertiary uppercase tracking-wider">
+              <h3 class="text-xs font-semibold text-tertiary tracking-wider">
               {{ $section['title'] }}
               </h3>
               </div>
