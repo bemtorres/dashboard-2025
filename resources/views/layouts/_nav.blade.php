@@ -21,6 +21,7 @@
 
       <div class="ml-4 flex items-center space-x-4 md:ml-6">
           <button
+              {{-- id="theme-toggle" --}}
               onclick="toggleTheme()"
               class="p-2 rounded-xl text-xs font-medium transition-colors duration-200"
               style="background-color: var(--primary-500); color: var(--text-on-primary, white);"
