@@ -146,6 +146,14 @@ class ThemeManager {
         const savedTheme = localStorage.getItem('theme');
         const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         this.currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+        // Aplicar tema al body
+        if (this.currentTheme === 'dark') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+
         document.documentElement.setAttribute('data-theme', this.currentTheme);
     }
 
@@ -180,6 +188,13 @@ class ThemeManager {
             if (typeof toast !== 'undefined') {
                 toast.success('Modo claro activado');
             }
+        }
+
+        // Aplicar nuevo tema al body
+        if (newTheme === 'dark') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
         }
 
         // Aplicar nuevo tema

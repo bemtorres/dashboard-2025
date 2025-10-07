@@ -11,10 +11,10 @@
       <h1 class="text-xl sm:text-2xl font-bold text-primary truncate">{{ $title }}</h1>
     </div>
     <div class="flex justify-end items-center space-x-2 sm:space-x-3 flex-shrink-0">
-      {!! $slot !!}
+      {!! $slot ?? '' !!}
     </div>
   </div>
-  @if($description)
+  @if($description ?? false)
     <p class="text-sm text-secondary leading-relaxed break-words">{{ $description }}</p>
   @endif
 </div>

@@ -1,0 +1,54 @@
+{
+  "name": "Con Tu Voz - LMS",
+  "short_name": "CTV",
+  "description": "Sistema de aprendizaje Con Tu Voz",
+  "start_url": "/app/login",
+  "display": "standalone",
+  "background_color": "#d1fae5",
+  "theme_color": "#34d399",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "es",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "/common/assets/webapp/img/gecko cara.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/common/assets/webapp/img/gecko cara.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/common/assets/webapp/img/gecko cara.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Menú Principal",
+      "short_name": "Menú",
+      "description": "Acceder al menú principal",
+      "url": "/app/login",
+      "icons": [
+        {
+          "src": "/common/assets/webapp/img/gecko cara.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

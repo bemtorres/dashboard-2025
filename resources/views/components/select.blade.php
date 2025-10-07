@@ -3,9 +3,9 @@
     'name' => '',
     'id' => '',
     'label' => '',
-    'options' => [],
+    'placeholder' => 'Seleccionar...',
     'value' => '',
-    'placeholder' => 'Selecciona una opción',
+    'options' => [],
     'required' => false,
     'disabled' => false,
     'error' => '',
@@ -14,7 +14,8 @@
     'wrapperClass' => '',
     'labelClass' => '',
     'selectClass' => '',
-    'icon' => null
+    'icon' => null,
+    'iconPosition' => 'right' // left, right
 ])
 
 @php
@@ -23,26 +24,25 @@
     $selectValue = old($name, $value);
     $hasError = $error || $errors->has($name);
 
-    // Clases base para el select
-    $baseSelectClasses = 'w-full px-3 py-2 border rounded-lg text-sm transition-all duration-200 bg-white text-gray-900 appearance-none cursor-pointer dark:bg-gray-800 dark:border-gray-600 dark:text-white';
-
-    // Clases de focus
-    $focusClasses = 'focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400';
-
-    // Clases de error
-    $errorClasses = $hasError ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300';
+    // Clases base para el select usando el sistema de colores personalizado
+    $baseSelectClasses = 'input w-full px-3 py-2.5 text-sm appearance-none cursor-pointer text-primary bg-primary';
 
     // Clases de estado
     $stateClasses = $disabled ? 'opacity-50 cursor-not-allowed' : '';
 
     // Clases finales
-    $finalSelectClasses = $baseSelectClasses . ' ' . $focusClasses . ' ' . $errorClasses . ' ' . $stateClasses . ' ' . $selectClass;
+    $finalSelectClasses = $baseSelectClasses . ' ' . $stateClasses . ' ' . $selectClass;
 
     // Clases para el wrapper
     $wrapperClasses = 'mb-4 ' . $wrapperClass;
 
     // Clases para el label
-    $labelClasses = 'block text-sm font-semibold text-gray-700 mb-2 dark:text-gray-200 ' . $labelClass;
+    $labelClasses = 'block text-sm font-semibold text-primary mb-2 ' . $labelClass;
+
+    // Icono por defecto si no se proporciona uno
+    $defaultIcon = $icon ?: '<svg class="h-4 w-4 text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>';
 @endphp
 
 <div class="{{ $wrapperClasses }}">
@@ -56,36 +56,45 @@
     @endif
 
     <div class="relative">
+        @if($icon && $iconPosition === 'left')
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                {!! $icon !!}
+            </div>
+        @endif
+
         <select
             id="{{ $selectId }}"
             name="{{ $selectName }}"
             {{ $required ? 'required' : '' }}
             {{ $disabled ? 'disabled' : '' }}
-            class="{{ $finalSelectClasses }}"
+            class="{{ $finalSelectClasses }} {{ $icon && $iconPosition === 'left' ? 'pl-10' : '' }} {{ $icon && $iconPosition === 'right' ? 'pr-10' : '' }}"
         >
             @if($placeholder)
-                <option value="" disabled {{ $selectValue == '' ? 'selected' : '' }}>
+                <option value="" class="text-primary bg-primary" {{ $selectValue == '' ? 'selected' : '' }}>
                     {{ $placeholder }}
                 </option>
             @endif
 
             @foreach($options as $optionValue => $optionLabel)
-                <option value="{{ $optionValue }}" {{ $selectValue == $optionValue ? 'selected' : '' }}>
+                <option
+                    value="{{ $optionValue }}"
+                    class="text-primary bg-primary"
+                    {{ $selectValue == $optionValue ? 'selected' : '' }}
+                >
                     {{ $optionLabel }}
                 </option>
             @endforeach
         </select>
 
-        <!-- Icono de flecha -->
-        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-            @if($icon)
+        @if($icon && $iconPosition === 'right')
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                 {!! $icon !!}
-            @else
-                <svg class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-            @endif
-        </div>
+            </div>
+        @elseif(!$icon)
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                {!! $defaultIcon !!}
+            </div>
+        @endif
     </div>
 
     @if($hasError)
@@ -95,7 +104,7 @@
     @endif
 
     @if($help && !$hasError)
-        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        <p class="mt-1 text-sm text-secondary">
             {{ $help }}
         </p>
     @endif

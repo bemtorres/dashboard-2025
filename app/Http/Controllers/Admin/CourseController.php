@@ -23,6 +23,9 @@ class CourseController extends Controller
     public function create()
     {
         //
+        return view('admin.courses.create', [
+            'title' => 'Crear Curso'
+        ]);
     }
 
     /**

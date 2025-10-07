@@ -58,7 +58,7 @@
   --neutral-900: #202123;
 
   /* Colores de Fondo - Estilo OpenAI */
-  --bg-primary: #ffffff;
+  --bg-primary: #f8fafc;
   --bg-secondary: #f7f7f8;
   --bg-tertiary: #f0f0f0;
 
@@ -236,16 +236,16 @@
 
 /* Cards del Sistema */
 .card {
-  @apply rounded-lg transition-all duration-200;
+  @apply rounded-2xl;
   background-color: var(--bg-primary);
   border: 1px solid var(--border-primary);
   box-shadow: var(--shadow-sm);
 }
 
-.card:hover {
+/* .card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
-}
+} */
 
 /* Inputs del Sistema */
 .input {

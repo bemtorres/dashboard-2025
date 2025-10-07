@@ -20,16 +20,25 @@
       </div>
 
       <div class="ml-4 flex items-center space-x-4 md:ml-6">
+          <!-- Webapp Link -->
+          <a href="{{ route('webapp.index') }}"
+             target="_blank"
+             class="p-2 rounded-xl text-xs font-medium transition-colors duration-200 bg-green-500 hover:bg-green-600 text-white border border-green-500 hover:border-green-600"
+             title="Abrir Webapp">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+              </svg>
+          </a>
+
           <button
-              {{-- id="theme-toggle" --}}
+              id="theme-toggle"
               onclick="toggleTheme()"
-              class="p-2 rounded-xl text-xs font-medium transition-colors duration-200"
-              style="background-color: var(--primary-500); color: var(--text-on-primary, white);"
+              class="p-2 rounded-xl text-xs font-medium transition-colors duration-200 bg-primary hover:bg-secondary text-primary border border-primary dark:border-gray-600 dark:hover:border-gray-500"
           >
-              <svg class="w-4 h-4 theme-icon-light" fill="none" stroke="currentColor" id="theme-icon-light" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 theme-icon-light hidden" fill="none" stroke="currentColor" id="theme-icon-light" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
               </svg>
-              <svg class="w-4 h-4 theme-icon-dark" fill="none" stroke="currentColor" id="theme-icon-dark" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 theme-icon-dark hidden" fill="none" stroke="currentColor" id="theme-icon-dark" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
               </svg>
           </button>

@@ -23,6 +23,9 @@ class ContentController extends Controller
     public function create()
     {
         //
+        return view('admin.contents.create', [
+            'title' => 'Crear Contenido'
+        ]);
     }
 
     /**

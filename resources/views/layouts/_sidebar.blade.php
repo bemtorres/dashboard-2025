@@ -75,7 +75,7 @@
 
  <div class="fixed inset-y-0 left-0 z-50 w-56 sidebar transform transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0"
      id="sidebar">
-     <div class="flex items-center justify-between h-16 px-4 sidebar-header">
+     {{-- <div class="flex items-center justify-between h-16 px-4 sidebar-header">
          <h1 class="text-lg lg:text-xl font-bold text-white">Admin Panel</h1>
          <button type="button"
              class="lg:hidden text-white hover:text-gray-200 focus:outline-none focus:text-gray-200 transition-colors duration-200 p-1 rounded-md hover:bg-primary-700"
@@ -84,7 +84,7 @@
                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
              </svg>
          </button>
-     </div>
+     </div> --}}
 
     <!-- Navigation -->
     <nav class="mt-5 px-2">
